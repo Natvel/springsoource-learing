@@ -66,7 +66,7 @@ public class ReflectivePropertyAccessor implements PropertyAccessor {
 			return false;
 		}
 		Class<?> type = (target instanceof Class ? (Class<?>) target : target.getClass());
-		if (type.isArray() && name.equals("length")) {
+		if (type.isArray() && "length".equals(name)) {
 			return true;
 		}
 		CacheKey cacheKey = new CacheKey(type, name);
@@ -107,7 +107,7 @@ public class ReflectivePropertyAccessor implements PropertyAccessor {
 		}
 		Class<?> type = (target instanceof Class ? (Class<?>) target : target.getClass());
 
-		if (type.isArray() && name.equals("length")) {
+		if (type.isArray() && "length".equals(name)) {
 			if (target instanceof Class) {
 				throw new AccessException("Cannot access length on array class itself");
 			}
@@ -278,7 +278,7 @@ public class ReflectivePropertyAccessor implements PropertyAccessor {
 		}
 		Class<?> type = (target instanceof Class ? (Class<?>) target : target.getClass());
 
-		if (type.isArray() && name.equals("length")) {
+		if (type.isArray() && "length".equals(name)) {
 			return TypeDescriptor.valueOf(Integer.TYPE);
 		}
 		CacheKey cacheKey = new CacheKey(type, name);

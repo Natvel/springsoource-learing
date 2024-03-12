@@ -393,13 +393,13 @@ public abstract class AbstractUrlHandlerMapping extends AbstractHandlerMapping {
 			}
 		}
 		else {
-			if (urlPath.equals("/")) {
+			if ("/".equals(urlPath)) {
 				if (logger.isInfoEnabled()) {
 					logger.info("Root mapping to " + getHandlerDescription(handler));
 				}
 				setRootHandler(resolvedHandler);
 			}
-			else if (urlPath.equals("/*")) {
+			else if ("/*".equals(urlPath)) {
 				if (logger.isInfoEnabled()) {
 					logger.info("Default mapping to " + getHandlerDescription(handler));
 				}

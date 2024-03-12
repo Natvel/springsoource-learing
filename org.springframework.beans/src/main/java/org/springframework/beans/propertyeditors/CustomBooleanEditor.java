@@ -111,13 +111,13 @@ public class CustomBooleanEditor extends PropertyEditorSupport {
 			setValue(Boolean.FALSE);
 		}
 		else if (this.trueString == null &&
-				(input.equalsIgnoreCase(VALUE_TRUE) || input.equalsIgnoreCase(VALUE_ON) ||
-				input.equalsIgnoreCase(VALUE_YES) || input.equals(VALUE_1))) {
+				(VALUE_TRUE.equalsIgnoreCase(input) || VALUE_ON.equalsIgnoreCase(input) ||
+				VALUE_YES.equalsIgnoreCase(input) || VALUE_1.equals(input))) {
 			setValue(Boolean.TRUE);
 		}
 		else if (this.falseString == null &&
-				(input.equalsIgnoreCase(VALUE_FALSE) || input.equalsIgnoreCase(VALUE_OFF) ||
-				input.equalsIgnoreCase(VALUE_NO) || input.equals(VALUE_0))) {
+				(VALUE_FALSE.equalsIgnoreCase(input) || VALUE_OFF.equalsIgnoreCase(input) ||
+				VALUE_NO.equalsIgnoreCase(input) || VALUE_0.equals(input))) {
 			setValue(Boolean.FALSE);
 		}
 		else {

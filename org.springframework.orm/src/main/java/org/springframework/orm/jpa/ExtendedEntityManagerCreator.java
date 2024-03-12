@@ -311,42 +311,42 @@ public abstract class ExtendedEntityManagerCreator {
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			// Invocation on EntityManager interface coming in...
 
-			if (method.getName().equals("equals")) {
+			if ("equals".equals(method.getName())) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0]);
 			}
-			else if (method.getName().equals("hashCode")) {
+			else if ("hashCode".equals(method.getName())) {
 				// Use hashCode of EntityManager proxy.
 				return hashCode();
 			}
-			else if (method.getName().equals("getTargetEntityManager")) {
+			else if ("getTargetEntityManager".equals(method.getName())) {
 				// Handle EntityManagerProxy interface.
 				return this.target;
 			}
-			else if (method.getName().equals("unwrap")) {
+			else if ("unwrap".equals(method.getName())) {
 				// Handle JPA 2.0 unwrap method - could be a proxy match.
 				Class targetClass = (Class) args[0];
 				if (targetClass == null || targetClass.isInstance(proxy)) {
 					return proxy;
 				}
 			}
-			else if (method.getName().equals("isOpen")) {
+			else if ("isOpen".equals(method.getName())) {
 				if (this.containerManaged) {
 					return true;
 				}
 			}
-			else if (method.getName().equals("close")) {
+			else if ("close".equals(method.getName())) {
 				if (this.containerManaged) {
 					throw new IllegalStateException("Invalid usage: Cannot close a container-managed EntityManager");
 				}
 			}
-			else if (method.getName().equals("getTransaction")) {
+			else if ("getTransaction".equals(method.getName())) {
 				if (this.containerManaged) {
 					throw new IllegalStateException(
 							"Cannot execute getTransaction() on a container-managed EntityManager");
 				}
 			}
-			else if (method.getName().equals("joinTransaction")) {
+			else if ("joinTransaction".equals(method.getName())) {
 				doJoinTransaction(true);
 				return null;
 			}

@@ -118,11 +118,11 @@ public class AntPathMatcher implements PathMatcher {
 			if (!fullMatch) {
 				return true;
 			}
-			if (pattIdxStart == pattIdxEnd && pattDirs[pattIdxStart].equals("*") && path.endsWith(this.pathSeparator)) {
+			if (pattIdxStart == pattIdxEnd && "*".equals(pattDirs[pattIdxStart]) && path.endsWith(this.pathSeparator)) {
 				return true;
 			}
 			for (int i = pattIdxStart; i <= pattIdxEnd; i++) {
-				if (!pattDirs[i].equals("**")) {
+				if (!"**".equals(pattDirs[i])) {
 					return false;
 				}
 			}
@@ -140,7 +140,7 @@ public class AntPathMatcher implements PathMatcher {
 		// up to last '**'
 		while (pattIdxStart <= pattIdxEnd && pathIdxStart <= pathIdxEnd) {
 			String patDir = pattDirs[pattIdxEnd];
-			if (patDir.equals("**")) {
+			if ("**".equals(patDir)) {
 				break;
 			}
 			if (!matchStrings(patDir, pathDirs[pathIdxEnd], uriTemplateVariables)) {
@@ -152,7 +152,7 @@ public class AntPathMatcher implements PathMatcher {
 		if (pathIdxStart > pathIdxEnd) {
 			// String is exhausted
 			for (int i = pattIdxStart; i <= pattIdxEnd; i++) {
-				if (!pattDirs[i].equals("**")) {
+				if (!"**".equals(pattDirs[i])) {
 					return false;
 				}
 			}
@@ -162,7 +162,7 @@ public class AntPathMatcher implements PathMatcher {
 		while (pattIdxStart != pattIdxEnd && pathIdxStart <= pathIdxEnd) {
 			int patIdxTmp = -1;
 			for (int i = pattIdxStart + 1; i <= pattIdxEnd; i++) {
-				if (pattDirs[i].equals("**")) {
+				if ("**".equals(pattDirs[i])) {
 					patIdxTmp = i;
 					break;
 				}
@@ -200,7 +200,7 @@ public class AntPathMatcher implements PathMatcher {
 		}
 
 		for (int i = pattIdxStart; i <= pattIdxEnd; i++) {
-			if (!pattDirs[i].equals("**")) {
+			if (!"**".equals(pattDirs[i])) {
 				return false;
 			}
 		}

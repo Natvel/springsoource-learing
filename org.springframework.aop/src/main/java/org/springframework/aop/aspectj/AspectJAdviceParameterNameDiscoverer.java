@@ -430,7 +430,7 @@ public class AspectJAdviceParameterNameDiscoverer implements ParameterNameDiscov
 					varNames.add(varName);
 				}
 			}
-			else if (tokens[i].startsWith("@args(") || tokens[i].equals("@args")) {
+			else if (tokens[i].startsWith("@args(") || "@args".equals(tokens[i])) {
 				PointcutBody body = getPointcutBody(tokens, i);
 				i += body.numTokensConsumed;
 				maybeExtractVariableNamesFromArgs(body.text, varNames);
@@ -474,7 +474,7 @@ public class AspectJAdviceParameterNameDiscoverer implements ParameterNameDiscov
 	 * If the token starts meets Java identifier conventions, it's in.
 	 */
 	private String maybeExtractVariableName(String candidateToken) {
-		if (candidateToken == null || candidateToken.equals("")) {
+		if (candidateToken == null || "".equals(candidateToken)) {
 			return null;
 		}
 		if (Character.isJavaIdentifierStart(candidateToken.charAt(0)) &&
@@ -523,9 +523,9 @@ public class AspectJAdviceParameterNameDiscoverer implements ParameterNameDiscov
 		List<String> varNames = new ArrayList<String>();
 		String[] tokens = StringUtils.tokenizeToStringArray(this.pointcutExpression, " ");
 		for (int i = 0; i < tokens.length; i++) {
-			if (tokens[i].equals("this") ||
+			if ("this".equals(tokens[i]) ||
 					tokens[i].startsWith("this(") ||
-					tokens[i].equals("target") ||
+					"target".equals(tokens[i]) ||
 					tokens[i].startsWith("target(")) {
 				PointcutBody body = getPointcutBody(tokens, i);
 				i += body.numTokensConsumed;
@@ -534,7 +534,7 @@ public class AspectJAdviceParameterNameDiscoverer implements ParameterNameDiscov
 					varNames.add(varName);
 				}
 			}
-			else if (tokens[i].equals("args") || tokens[i].startsWith("args(")) {
+			else if ("args".equals(tokens[i]) || tokens[i].startsWith("args(")) {
 				PointcutBody body = getPointcutBody(tokens, i);
 				i += body.numTokensConsumed;
 				List<String> candidateVarNames = new ArrayList<String>();
@@ -646,7 +646,7 @@ public class AspectJAdviceParameterNameDiscoverer implements ParameterNameDiscov
 			numTokensConsumed++;
 			int currentIndex = startIndex + numTokensConsumed;
 			while (currentIndex < tokens.length) {
-				if (tokens[currentIndex].equals("(")) {
+				if ("(".equals(tokens[currentIndex])) {
 					currentIndex++;
 					continue;
 				}
@@ -686,7 +686,7 @@ public class AspectJAdviceParameterNameDiscoverer implements ParameterNameDiscov
 			List<String> varNames = new ArrayList<String>();
 			String[] tokens = StringUtils.tokenizeToStringArray(this.pointcutExpression, " ");
 			for (int i = 0; i < tokens.length; i++) {
-				if (tokens[i].equals("args") || tokens[i].startsWith("args(")) {
+				if ("args".equals(tokens[i]) || tokens[i].startsWith("args(")) {
 					PointcutBody body = getPointcutBody(tokens, i);
 					i += body.numTokensConsumed;
 					maybeExtractVariableNamesFromArgs(body.text, varNames);

@@ -138,27 +138,27 @@ public class SpringPersistenceManagerProxyBean extends JdoAccessor implements Fa
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			// Invocation on PersistenceManager interface coming in...
 
-			if (method.getName().equals("equals")) {
+			if ("equals".equals(method.getName())) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0]);
 			}
-			else if (method.getName().equals("hashCode")) {
+			else if ("hashCode".equals(method.getName())) {
 				// Use hashCode of PersistenceManager proxy.
 				return System.identityHashCode(proxy);
 			}
-			else if (method.getName().equals("toString")) {
+			else if ("toString".equals(method.getName())) {
 				// Deliver toString without touching a target EntityManager.
 				return "Spring PersistenceManager proxy for target factory [" + getPersistenceManagerFactory() + "]";
 			}
-			else if (method.getName().equals("getPersistenceManagerFactory")) {
+			else if ("getPersistenceManagerFactory".equals(method.getName())) {
 				// Return PersistenceManagerFactory without creating a PersistenceManager.
 				return getPersistenceManagerFactory();
 			}
-			else if (method.getName().equals("isClosed")) {
+			else if ("isClosed".equals(method.getName())) {
 				// Proxy is always usable.
 				return false;
 			}
-			else if (method.getName().equals("close")) {
+			else if ("close".equals(method.getName())) {
 				// Suppress close method.
 				return null;
 			}

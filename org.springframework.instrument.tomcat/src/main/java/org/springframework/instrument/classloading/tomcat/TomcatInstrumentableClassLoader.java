@@ -160,7 +160,7 @@ public class TomcatInstrumentableClassLoader extends WebappClassLoader {
 				// Skip static and final fields (the old FieldFilter)
 				// do not copy resourceEntries - it's a cache that holds class entries.
 				if (!(Modifier.isStatic(field.getModifiers()) || Modifier.isFinal(field.getModifiers()) ||
-						field.getName().equals("resourceEntries"))) {
+						"resourceEntries".equals(field.getName()))) {
 					try {
 						// copy the field (the old FieldCallback)
 						field.setAccessible(true);

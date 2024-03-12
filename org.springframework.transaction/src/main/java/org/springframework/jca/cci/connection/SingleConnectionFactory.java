@@ -228,15 +228,15 @@ public class SingleConnectionFactory extends DelegatingConnectionFactory impleme
 		}
 
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-			if (method.getName().equals("equals")) {
+			if ("equals".equals(method.getName())) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0]);
 			}
-			else if (method.getName().equals("hashCode")) {
+			else if ("hashCode".equals(method.getName())) {
 				// Use hashCode of Connection proxy.
 				return System.identityHashCode(proxy);
 			}
-			else if (method.getName().equals("close")) {
+			else if ("close".equals(method.getName())) {
 				// Handle close method: don't pass the call on.
 				return null;
 			}

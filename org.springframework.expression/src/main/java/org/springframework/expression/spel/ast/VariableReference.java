@@ -43,10 +43,10 @@ public class VariableReference extends SpelNodeImpl {
 
 	@Override
 	public TypedValue getValueInternal(ExpressionState state) throws SpelEvaluationException {
-		if (this.name.equals(THIS)) {
+		if (THIS.equals(this.name)) {
 			return state.getActiveContextObject();
 		}
-		if (this.name.equals(ROOT)) {
+		if (ROOT.equals(this.name)) {
 			return state.getRootContextObject();
 		}
 		TypedValue result = state.lookupVariable(this.name);
@@ -66,7 +66,7 @@ public class VariableReference extends SpelNodeImpl {
 
 	@Override
 	public boolean isWritable(ExpressionState expressionState) throws SpelEvaluationException {
-		return !(this.name.equals(THIS) || this.name.equals(ROOT));
+		return !(THIS.equals(this.name) || ROOT.equals(this.name));
 	}
 
 }

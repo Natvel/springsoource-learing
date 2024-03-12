@@ -434,10 +434,10 @@ public class DefaultPersistenceUnitManager
 		}
 
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-			if (method.getName().equals("getSharedCacheMode")) {
+			if ("getSharedCacheMode".equals(method.getName())) {
 				return Enum.valueOf(this.sharedCacheModeEnum, this.target.getSharedCacheModeName());
 			}
-			else if (method.getName().equals("getValidationMode")) {
+			else if ("getValidationMode".equals(method.getName())) {
 				return Enum.valueOf(this.validationModeEnum, this.target.getValidationModeName());
 			}
 			else {

@@ -499,11 +499,11 @@ public abstract class AbstractEntityManagerFactoryBean implements
 
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			try {
-				if (method.getName().equals("equals")) {
+				if ("equals".equals(method.getName())) {
 					// Only consider equal when proxies are identical.
 					return (proxy == args[0]);
 				}
-				else if (method.getName().equals("hashCode")) {
+				else if ("hashCode".equals(method.getName())) {
 					// Use hashCode of EntityManagerFactory proxy.
 					return System.identityHashCode(proxy);
 				}

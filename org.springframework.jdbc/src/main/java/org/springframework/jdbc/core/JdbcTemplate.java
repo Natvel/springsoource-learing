@@ -1310,32 +1310,32 @@ public class JdbcTemplate extends JdbcAccessor implements JdbcOperations {
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			// Invocation on ConnectionProxy interface coming in...
 
-			if (method.getName().equals("equals")) {
+			if ("equals".equals(method.getName())) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0]);
 			}
-			else if (method.getName().equals("hashCode")) {
+			else if ("hashCode".equals(method.getName())) {
 				// Use hashCode of PersistenceManager proxy.
 				return System.identityHashCode(proxy);
 			}
-			else if (method.getName().equals("unwrap")) {
+			else if ("unwrap".equals(method.getName())) {
 				if (((Class) args[0]).isInstance(proxy)) {
 					return proxy;
 				}
 			}
-			else if (method.getName().equals("isWrapperFor")) {
+			else if ("isWrapperFor".equals(method.getName())) {
 				if (((Class) args[0]).isInstance(proxy)) {
 					return true;
 				}
 			}
-			else if (method.getName().equals("close")) {
+			else if ("close".equals(method.getName())) {
 				// Handle close method: suppress, not valid.
 				return null;
 			}
-			else if (method.getName().equals("isClosed")) {
+			else if ("isClosed".equals(method.getName())) {
 				return false;
 			}
-			else if (method.getName().equals("getTargetConnection")) {
+			else if ("getTargetConnection".equals(method.getName())) {
 				// Handle getTargetConnection method: return underlying Connection.
 				return this.target;
 			}

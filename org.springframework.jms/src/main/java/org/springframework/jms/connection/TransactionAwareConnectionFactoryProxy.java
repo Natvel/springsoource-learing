@@ -219,11 +219,11 @@ public class TransactionAwareConnectionFactoryProxy
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			// Invocation on ConnectionProxy interface coming in...
 
-			if (method.getName().equals("equals")) {
+			if ("equals".equals(method.getName())) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0]);
 			}
-			else if (method.getName().equals("hashCode")) {
+			else if ("hashCode".equals(method.getName())) {
 				// Use hashCode of Connection proxy.
 				return System.identityHashCode(proxy);
 			}
@@ -291,25 +291,25 @@ public class TransactionAwareConnectionFactoryProxy
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			// Invocation on SessionProxy interface coming in...
 
-			if (method.getName().equals("equals")) {
+			if ("equals".equals(method.getName())) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0]);
 			}
-			else if (method.getName().equals("hashCode")) {
+			else if ("hashCode".equals(method.getName())) {
 				// Use hashCode of Connection proxy.
 				return System.identityHashCode(proxy);
 			}
-			else if (method.getName().equals("commit")) {
+			else if ("commit".equals(method.getName())) {
 				throw new TransactionInProgressException("Commit call not allowed within a managed transaction");
 			}
-			else if (method.getName().equals("rollback")) {
+			else if ("rollback".equals(method.getName())) {
 				throw new TransactionInProgressException("Rollback call not allowed within a managed transaction");
 			}
-			else if (method.getName().equals("close")) {
+			else if ("close".equals(method.getName())) {
 				// Handle close method: not to be closed within a transaction.
 				return null;
 			}
-			else if (method.getName().equals("getTargetSession")) {
+			else if ("getTargetSession".equals(method.getName())) {
 				// Handle getTargetSession method: return underlying Session.
 				return this.target;
 			}

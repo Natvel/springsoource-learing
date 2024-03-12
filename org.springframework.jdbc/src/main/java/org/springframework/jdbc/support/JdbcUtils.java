@@ -437,7 +437,7 @@ public abstract class JdbcUtils {
 		StringBuilder result = new StringBuilder();
 		boolean nextIsUpper = false;
 		if (name != null && name.length() > 0) {
-			if (name.length() > 1 && name.substring(1,2).equals("_")) {
+			if (name.length() > 1 && "_".equals(name.substring(1,2))) {
 				result.append(name.substring(0, 1).toUpperCase());
 			}
 			else {
@@ -445,7 +445,7 @@ public abstract class JdbcUtils {
 			}
 			for (int i = 1; i < name.length(); i++) {
 				String s = name.substring(i, i + 1);
-				if (s.equals("_")) {
+				if ("_".equals(s)) {
 					nextIsUpper = true;
 				}
 				else {
