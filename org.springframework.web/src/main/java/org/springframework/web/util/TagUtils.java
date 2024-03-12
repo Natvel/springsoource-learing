@@ -67,13 +67,13 @@ public abstract class TagUtils {
 	 */
 	public static int getScope(String scope) {
 		Assert.notNull(scope, "Scope to search for cannot be null");
-		if (scope.equals(SCOPE_REQUEST)) {
+		if (SCOPE_REQUEST.equals(scope)) {
 			return PageContext.REQUEST_SCOPE;
 		}
-		else if (scope.equals(SCOPE_SESSION)) {
+		else if (SCOPE_SESSION.equals(scope)) {
 			return PageContext.SESSION_SCOPE;
 		}
-		else if (scope.equals(SCOPE_APPLICATION)) {
+		else if (SCOPE_APPLICATION.equals(scope)) {
 			return PageContext.APPLICATION_SCOPE;
 		}
 		else {

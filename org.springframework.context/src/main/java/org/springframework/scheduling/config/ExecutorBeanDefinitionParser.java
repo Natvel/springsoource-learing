@@ -65,16 +65,16 @@ public class ExecutorBeanDefinitionParser extends AbstractSingleBeanDefinitionPa
 			prefix = "edu.emory.mathcs.backport." + prefix;
 		}
 		String policyClassName;
-		if (rejectionPolicy.equals("ABORT")) {
+		if ("ABORT".equals(rejectionPolicy)) {
 			policyClassName = prefix + "AbortPolicy";
 		}
-		else if (rejectionPolicy.equals("CALLER_RUNS")) {
+		else if ("CALLER_RUNS".equals(rejectionPolicy)) {
 			policyClassName = prefix + "CallerRunsPolicy";
 		}
-		else if (rejectionPolicy.equals("DISCARD")) {
+		else if ("DISCARD".equals(rejectionPolicy)) {
 			policyClassName = prefix + "DiscardPolicy";
 		}
-		else if (rejectionPolicy.equals("DISCARD_OLDEST")) {
+		else if ("DISCARD_OLDEST".equals(rejectionPolicy)) {
 			policyClassName = prefix + "DiscardOldestPolicy";
 		}
 		else {

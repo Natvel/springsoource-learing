@@ -184,7 +184,7 @@ public class HttpHeaders implements MultiValueMap<String, String> {
 				else {
 					charsetName = token.substring(0, paramIdx);
 				}
-				if (!charsetName.equals("*")) {
+				if (!"*".equals(charsetName)) {
 					result.add(Charset.forName(charsetName));
 				}
 			}

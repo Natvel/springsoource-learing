@@ -76,7 +76,7 @@ public class ThrowsAdviceInterceptor implements MethodInterceptor, AfterAdvice {
 
 		Method[] methods = throwsAdvice.getClass().getMethods();
 		for (Method method : methods) {
-			if (method.getName().equals(AFTER_THROWING) &&
+			if (AFTER_THROWING.equals(method.getName()) &&
 					(method.getParameterTypes().length == 1 || method.getParameterTypes().length == 4) &&
 					Throwable.class.isAssignableFrom(method.getParameterTypes()[method.getParameterTypes().length - 1])
 				) {

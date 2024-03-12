@@ -154,23 +154,23 @@ public abstract class SharedEntityManagerCreator {
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			// Invocation on EntityManager interface coming in...
 
-			if (method.getName().equals("equals")) {
+			if ("equals".equals(method.getName())) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0]);
 			}
-			else if (method.getName().equals("hashCode")) {
+			else if ("hashCode".equals(method.getName())) {
 				// Use hashCode of EntityManager proxy.
 				return hashCode();
 			}
-			else if (method.getName().equals("toString")) {
+			else if ("toString".equals(method.getName())) {
 				// Deliver toString without touching a target EntityManager.
 				return "Shared EntityManager proxy for target factory [" + this.targetFactory + "]";
 			}
-			else if (method.getName().equals("getEntityManagerFactory")) {
+			else if ("getEntityManagerFactory".equals(method.getName())) {
 				// JPA 2.0: return EntityManagerFactory without creating an EntityManager.
 				return this.targetFactory;
 			}
-			else if (method.getName().equals("getCriteriaBuilder") || method.getName().equals("getMetamodel")) {
+			else if ("getCriteriaBuilder".equals(method.getName()) || "getMetamodel".equals(method.getName())) {
 				// JPA 2.0: return EntityManagerFactory's CriteriaBuilder/Metamodel (avoid creation of EntityManager)
 				try {
 					return EntityManagerFactory.class.getMethod(method.getName()).invoke(this.targetFactory);
@@ -179,27 +179,27 @@ public abstract class SharedEntityManagerCreator {
 					throw ex.getTargetException();
 				}
 			}
-			else if (method.getName().equals("unwrap")) {
+			else if ("unwrap".equals(method.getName())) {
 				// JPA 2.0: handle unwrap method - could be a proxy match.
 				Class targetClass = (Class) args[0];
 				if (targetClass == null || targetClass.isInstance(proxy)) {
 					return proxy;
 				}
 			}
-			else if (method.getName().equals("isOpen")) {
+			else if ("isOpen".equals(method.getName())) {
 				// Handle isOpen method: always return true.
 				return true;
 			}
-			else if (method.getName().equals("close")) {
+			else if ("close".equals(method.getName())) {
 				// Handle close method: suppress, not valid.
 				return null;
 			}
-			else if (method.getName().equals("getTransaction")) {
+			else if ("getTransaction".equals(method.getName())) {
 				throw new IllegalStateException(
 						"Not allowed to create transaction on shared EntityManager - " +
 						"use Spring transactions or EJB CMT instead");
 			}
-			else if (method.getName().equals("joinTransaction")) {
+			else if ("joinTransaction".equals(method.getName())) {
 				throw new IllegalStateException(
 						"Not allowed to join transaction on shared EntityManager - " +
 						"use Spring transactions or EJB CMT instead");
@@ -210,14 +210,14 @@ public abstract class SharedEntityManagerCreator {
 			EntityManager target =
 					EntityManagerFactoryUtils.doGetTransactionalEntityManager(this.targetFactory, this.properties);
 
-			if (method.getName().equals("getTargetEntityManager")) {
+			if ("getTargetEntityManager".equals(method.getName())) {
 				// Handle EntityManagerProxy interface.
 				if (target == null) {
 					throw new IllegalStateException("No transactional EntityManager available");
 				}
 				return target;
 			}
-			else if (method.getName().equals("unwrap")) {
+			else if ("unwrap".equals(method.getName())) {
 				// We need a transactional target now.
 				if (target == null) {
 					throw new IllegalStateException("No transactional EntityManager available");
@@ -289,15 +289,15 @@ public abstract class SharedEntityManagerCreator {
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			// Invocation on Query interface coming in...
 
-			if (method.getName().equals("equals")) {
+			if ("equals".equals(method.getName())) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0]);
 			}
-			else if (method.getName().equals("hashCode")) {
+			else if ("hashCode".equals(method.getName())) {
 				// Use hashCode of EntityManager proxy.
 				return hashCode();
 			}
-			else if (method.getName().equals("unwrap")) {
+			else if ("unwrap".equals(method.getName())) {
 				// Handle JPA 2.0 unwrap method - could be a proxy match.
 				Class targetClass = (Class) args[0];
 				if (targetClass == null || targetClass.isInstance(proxy)) {
@@ -314,8 +314,8 @@ public abstract class SharedEntityManagerCreator {
 				throw ex.getTargetException();
 			}
 			finally {
-				if (method.getName().equals("getResultList") || method.getName().equals("getSingleResult") ||
-						method.getName().equals("executeUpdate")) {
+				if ("getResultList".equals(method.getName()) || "getSingleResult".equals(method.getName()) ||
+						"executeUpdate".equals(method.getName())) {
 					EntityManagerFactoryUtils.closeEntityManager(this.em);
 				}
 			}

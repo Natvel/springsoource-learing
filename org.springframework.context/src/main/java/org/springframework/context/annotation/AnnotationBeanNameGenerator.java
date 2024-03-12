@@ -111,10 +111,10 @@ public class AnnotationBeanNameGenerator implements BeanNameGenerator {
 	protected boolean isStereotypeWithNameValue(String annotationType,
 			Set<String> metaAnnotationTypes, Map<String, Object> attributes) {
 
-		boolean isStereotype = annotationType.equals(COMPONENT_ANNOTATION_CLASSNAME) ||
+		boolean isStereotype = COMPONENT_ANNOTATION_CLASSNAME.equals(annotationType) ||
 				(metaAnnotationTypes != null && metaAnnotationTypes.contains(COMPONENT_ANNOTATION_CLASSNAME)) ||
-				annotationType.equals("javax.annotation.ManagedBean") ||
-				annotationType.equals("javax.inject.Named");
+				"javax.annotation.ManagedBean".equals(annotationType) ||
+				"javax.inject.Named".equals(annotationType);
 		return (isStereotype && attributes != null && attributes.containsKey("value"));
 	}
 

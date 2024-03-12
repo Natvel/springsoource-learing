@@ -147,7 +147,7 @@ public abstract class AopUtils {
 	 * @see java.lang.Object#finalize()
 	 */
 	public static boolean isFinalizeMethod(Method method) {
-		return (method != null && method.getName().equals("finalize") &&
+		return (method != null && "finalize".equals(method.getName()) &&
 				method.getParameterTypes().length == 0);
 	}
 

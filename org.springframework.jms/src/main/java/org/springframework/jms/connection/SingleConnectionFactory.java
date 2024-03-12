@@ -470,18 +470,18 @@ public class SingleConnectionFactory
 		}
 
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-			if (method.getName().equals("equals")) {
+			if ("equals".equals(method.getName())) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0]);
 			}
-			else if (method.getName().equals("hashCode")) {
+			else if ("hashCode".equals(method.getName())) {
 				// Use hashCode of Connection proxy.
 				return System.identityHashCode(proxy);
 			}
-			else if (method.getName().equals("toString")) {
+			else if ("toString".equals(method.getName())) {
 				return "Shared JMS Connection: " + this.target;
 			}
-			else if (method.getName().equals("setClientID")) {
+			else if ("setClientID".equals(method.getName())) {
 				// Handle setClientID method: throw exception if not compatible.
 				String currentClientId = this.target.getClientID();
 				if (currentClientId != null && currentClientId.equals(args[0])) {
@@ -493,7 +493,7 @@ public class SingleConnectionFactory
 							"Set the 'clientId' property on the SingleConnectionFactory instead.");
 				}
 			}
-			else if (method.getName().equals("setExceptionListener")) {
+			else if ("setExceptionListener".equals(method.getName())) {
 				// Handle setExceptionListener method: add to the chain.
 				ExceptionListener currentExceptionListener = this.target.getExceptionListener();
 				if (currentExceptionListener instanceof InternalChainedExceptionListener && args[0] != null) {
@@ -508,7 +508,7 @@ public class SingleConnectionFactory
 							"which will allow for registering further ExceptionListeners to the recovery chain.");
 				}
 			}
-			else if (method.getName().equals("start")) {
+			else if ("start".equals(method.getName())) {
 				// Handle start method: track started state.
 				synchronized (connectionMonitor) {
 					if (!started) {
@@ -518,16 +518,16 @@ public class SingleConnectionFactory
 				}
 				return null;
 			}
-			else if (method.getName().equals("stop")) {
+			else if ("stop".equals(method.getName())) {
 				// Handle stop method: don't pass the call on.
 				return null;
 			}
-			else if (method.getName().equals("close")) {
+			else if ("close".equals(method.getName())) {
 				// Handle close method: don't pass the call on.
 				return null;
 			}
-			else if (method.getName().equals("createSession") || method.getName().equals("createQueueSession") ||
-					method.getName().equals("createTopicSession")) {
+			else if ("createSession".equals(method.getName()) || "createQueueSession".equals(method.getName()) ||
+					"createTopicSession".equals(method.getName())) {
 				boolean transacted = (Boolean) args[0];
 				Integer ackMode = (Integer) args[1];
 				Integer mode = (transacted ? Session.SESSION_TRANSACTED : ackMode);
@@ -548,7 +548,7 @@ public class SingleConnectionFactory
 			}
 			try {
 				Object retVal = method.invoke(this.target, args);
-				if (method.getName().equals("getExceptionListener") && retVal instanceof InternalChainedExceptionListener) {
+				if ("getExceptionListener".equals(method.getName()) && retVal instanceof InternalChainedExceptionListener) {
 					// Handle getExceptionListener method: hide internal chain.
 					InternalChainedExceptionListener listener = (InternalChainedExceptionListener) retVal;
 					return listener.getUserListener();

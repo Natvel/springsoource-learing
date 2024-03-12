@@ -279,18 +279,18 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			String methodName = method.getName();
-			if (methodName.equals("equals")) {
+			if ("equals".equals(methodName)) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0]);
 			}
-			else if (methodName.equals("hashCode")) {
+			else if ("hashCode".equals(methodName)) {
 				// Use hashCode of Session proxy.
 				return System.identityHashCode(proxy);
 			}
-			else if (methodName.equals("toString")) {
+			else if ("toString".equals(methodName)) {
 				return "Cached JMS Session: " + this.target;
 			}
-			else if (methodName.equals("close")) {
+			else if ("close".equals(methodName)) {
 				// Handle close method: don't pass the call on.
 				if (active) {
 					synchronized (this.sessionList) {
@@ -305,24 +305,24 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 				physicalClose();
 				return null;
 			}
-			else if (methodName.equals("getTargetSession")) {
+			else if ("getTargetSession".equals(methodName)) {
 				// Handle getTargetSession method: return underlying Session.
 				return this.target;
 			}
-			else if (methodName.equals("commit") || methodName.equals("rollback")) {
+			else if ("commit".equals(methodName) || "rollback".equals(methodName)) {
 				this.transactionOpen = false;
 			}
 			else if (methodName.startsWith("create")) {
 				this.transactionOpen = true;
-				if (isCacheProducers() && (methodName.equals("createProducer") ||
-						methodName.equals("createSender") || methodName.equals("createPublisher"))) {
+				if (isCacheProducers() && ("createProducer".equals(methodName) ||
+						"createSender".equals(methodName) || "createPublisher".equals(methodName))) {
 					// Destination argument being null is ok for a producer
 					return getCachedProducer((Destination) args[0]);
 				}
 				else if (isCacheConsumers()) {
 					// let raw JMS invocation throw an exception if Destination (i.e. args[0]) is null
-					if ((methodName.equals("createConsumer") || methodName.equals("createReceiver") ||
-							methodName.equals("createSubscriber"))) {
+					if (("createConsumer".equals(methodName) || "createReceiver".equals(methodName) ||
+							"createSubscriber".equals(methodName))) {
 						if (args[0] != null) {
 							return getCachedConsumer((Destination) args[0],
 									(args.length > 1 ? (String) args[1] : null),
@@ -330,7 +330,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 									null);
 						}
 					}
-					else if (methodName.equals("createDurableSubscriber")) {
+					else if ("createDurableSubscriber".equals(methodName)) {
 						if (args[0] != null) {
 							return getCachedConsumer((Destination) args[0],
 									(args.length > 2 ? (String) args[2] : null),

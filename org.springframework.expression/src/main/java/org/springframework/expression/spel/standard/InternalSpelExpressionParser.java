@@ -490,7 +490,7 @@ class InternalSpelExpressionParser extends TemplateAwareExpressionParser {
 	private boolean maybeEatTypeReference() {
 		if (peekToken(TokenKind.IDENTIFIER)) {
 			Token typeName = peekToken();
-			if (!typeName.stringValue().equals("T")) {
+			if (!"T".equals(typeName.stringValue())) {
 				return false;
 			}
 			nextToken();
@@ -507,7 +507,7 @@ class InternalSpelExpressionParser extends TemplateAwareExpressionParser {
 	private boolean maybeEatNullReference() {
 		if (peekToken(TokenKind.IDENTIFIER)) {
 			Token nullToken = peekToken();
-			if (!nullToken.stringValue().equals("null")) {
+			if (!"null".equals(nullToken.stringValue())) {
 				return false;
 			}
 			nextToken();
@@ -724,11 +724,11 @@ class InternalSpelExpressionParser extends TemplateAwareExpressionParser {
 		}
 		if (t.isIdentifier()) {
 			String idString = t.stringValue();
-			if (idString.equalsIgnoreCase("instanceof")) {
+			if ("instanceof".equalsIgnoreCase(idString)) {
 				return t.asInstanceOfToken();
-			} else if (idString.equalsIgnoreCase("matches")) {
+			} else if ("matches".equalsIgnoreCase(idString)) {
 				return t.asMatchesToken();
-			} else if (idString.equalsIgnoreCase("between")) {
+			} else if ("between".equalsIgnoreCase(idString)) {
 				return t.asBetweenToken();
 			}			
 		}
